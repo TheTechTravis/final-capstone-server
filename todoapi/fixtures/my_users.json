@@ -8,7 +8,7 @@
     },
     {
         "model": "todoapi.MyUser",
-        "pk": 1,
+        "pk": 2,
         "fields": {
             "user": 2
         }
