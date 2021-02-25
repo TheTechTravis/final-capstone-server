@@ -6,5 +6,5 @@ python manage.py makemigrations todoapi
 python manage.py migrate todoapi
 python manage.py loaddata users
 python manage.py loaddata tokens
-python manage.py loaddata my_user
-python manage.py loaddata task
+python manage.py loaddata my_users
+python manage.py loaddata tasks

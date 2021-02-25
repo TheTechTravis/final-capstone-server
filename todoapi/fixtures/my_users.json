@@ -1,0 +1,16 @@
+[
+    {
+        "model": "todoapi.MyUser",
+        "pk": 1,
+        "fields": {
+            "user": 1
+        }
+    },
+    {
+        "model": "todoapi.MyUser",
+        "pk": 1,
+        "fields": {
+            "user": 2
+        }
+    }
+]
