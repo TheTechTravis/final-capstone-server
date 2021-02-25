@@ -5,7 +5,7 @@
         "fields": {
             "user": 1,
             "title": "Title 1",
-            "content": "",
+            "content": "Content 1",
             "creation_date": "2006-10-25",
             "is_complete": false
         }
@@ -16,7 +16,7 @@
         "fields": {
             "user": 1,
             "title": "Title 2",
-            "content": "",
+            "content": "Content 2",
             "creation_date": "2006-10-25",
             "is_complete": false
         }
@@ -27,7 +27,7 @@
         "fields": {
             "user": 1,
             "title": "Title 3",
-            "content": "",
+            "content": "Content 3",
             "creation_date": "2006-10-25",
             "is_complete": false
         }
@@ -38,7 +38,7 @@
         "fields": {
             "user": 1,
             "title": "Title 4",
-            "content": "",
+            "content": "Content 4",
             "creation_date": "2006-10-25",
             "is_complete": false
         }
@@ -49,7 +49,7 @@
         "fields": {
             "user": 1,
             "title": "Title 5",
-            "content": "",
+            "content": "Content 5",
             "creation_date": "2006-10-25",
             "is_complete": false
         }
