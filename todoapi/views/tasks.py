@@ -5,6 +5,9 @@ from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
+from rest_framework import status
+from datetime import date
 from todoapi.models import Task, MyUser
 
 
@@ -18,12 +21,13 @@ class Tasks(ViewSet):
         """
         current_user = MyUser.objects.get(user=request.auth.user)
 
+        # Grab required data from client to build a new task instance
         task = Task()
-        task.user = request.data["time"]
-        task.title = request.data["date"]
-        task.content = request.data["description"]
-        task.creation_date = request.data["creationDate"]
-        task.is_complete = request.data["date"]
+        task.user = current_user
+        task.title = request.data["title"]
+        task.content = request.data["content"]
+        task.creation_date = date.today()
+        task.is_complete = False
 
         try:
             task.save()
@@ -32,8 +36,22 @@ class Tasks(ViewSet):
         except ValidationError as ex:
             return Response({"reason": ex.message}, status=status.HTTP_400_BAD_REQUEST)
 
+    def patch(self, request, pk=None):
+        """Handle PATCH requests for a task
+
+        Returns:
+            Response -- Empty body with 204 status code
+        """
+
+        # Allow user to PATCH is_complete field
+        task = Task.objects.get(pk=pk)
+        task.is_complete = request.data["is_complete"]
+        task.save()
+
+        return Response({}, status=status.HTTP_204_NO_CONTENT)
+
     def update(self, request, pk=None):
-        """Handle PUT requests for an task
+        """Handle PUT requests for a task
 
         Returns:
             Response -- Empty body with 204 status code
@@ -44,7 +62,8 @@ class Tasks(ViewSet):
         task.user = current_user
         task.title = request.data["title"]
         task.content = request.data["content"]
-        task.creation_date = request.data["creationDate"]
+        task.creation_date = request.data["creation_date"]
+        task.is_complete = request.data["is_complete"]
 
         task.save()
 
