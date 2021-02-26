@@ -76,12 +76,12 @@ class Tasks(ViewSet):
             Response -- 200, 404, or 500 status code
         """
         try:
-            task = Event.objects.get(pk=pk)
+            task = Task.objects.get(pk=pk)
             task.delete()
 
             return Response({}, status=status.HTTP_204_NO_CONTENT)
 
-        except Event.DoesNotExist as ex:
+        except Task.DoesNotExist as ex:
             return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
 
         except Exception as ex:
