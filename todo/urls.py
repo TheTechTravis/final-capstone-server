@@ -13,14 +13,15 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf.urls import include
 from django.urls import path
 from rest_framework import routers
-from django.conf.urls import include
 from todoapi.views import register_user, login_user
+from todoapi.views import Tasks
 
 
 router = routers.DefaultRouter(trailing_slash=False)
-
+router.register(r'tasks', Tasks, 'task')
 
 urlpatterns = [
     path('', include(router.urls)),
