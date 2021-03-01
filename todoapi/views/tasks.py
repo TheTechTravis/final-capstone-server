@@ -21,7 +21,7 @@ class Tasks(ViewSet):
         """
         current_user = MyUser.objects.get(user=request.auth.user)
 
-        # Grab required data from client to build a new task instance
+        # Grab data from client's request to build a new task instance
         task = Task()
         task.user = current_user
         task.title = request.data["title"]
@@ -29,6 +29,8 @@ class Tasks(ViewSet):
         task.creation_date = date.today()
         task.is_complete = False
 
+        # Save task instance to database, then convert response into JSON before
+        # sending the new object back to the client.
         try:
             task.save()
             serializer = TaskSerializer(task, context={'request': request})
@@ -58,6 +60,7 @@ class Tasks(ViewSet):
         """
         current_user = MyUser.objects.get(user=request.auth.user)
 
+        # Grab data from client's request to build a new task instance
         task = Task.objects.get(pk=pk)
         task.user = current_user
         task.title = request.data["title"]
@@ -65,6 +68,8 @@ class Tasks(ViewSet):
         task.creation_date = request.data["creation_date"]
         task.is_complete = request.data["is_complete"]
 
+        # Save the updated task instance to database,
+        # overwriting the original values.
         task.save()
 
         return Response({}, status=status.HTTP_204_NO_CONTENT)
@@ -75,6 +80,8 @@ class Tasks(ViewSet):
         Returns:
             Response -- 200, 404, or 500 status code
         """
+        # Find matching id of task and delete the entire
+        # instance from database.
         try:
             task = Task.objects.get(pk=pk)
             task.delete()
@@ -117,7 +124,7 @@ class Tasks(ViewSet):
         # Get all tasks associated to the current_user
         all_tasks = all_tasks.filter(user=current_user)
 
-        # Note the addtional `many=True` argument to the
+        # Note the additional `many=True` argument to the
         # serializer. It's needed when you are serializing
         # a list of objects instead of a single object.
         serializer = TaskSerializer(

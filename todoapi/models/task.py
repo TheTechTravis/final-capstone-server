@@ -2,6 +2,7 @@ from django.db import models
 from .my_user import MyUser
 
 
+# Blueprint for creating a single task
 class Task(models.Model):
 
     user = models.ForeignKey("MyUser", on_delete=models.CASCADE)
